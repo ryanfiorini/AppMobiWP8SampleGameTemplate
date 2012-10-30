@@ -1,0 +1,542 @@
+﻿<!DOCTYPE html><!--HTML5 doctype-->
+<html>
+
+<head>
+<title>Old Lady Match</title>
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8"> 
+    <script>
+        window.external.notify("logger:Loading index.html");
+    </script>
+<style type="text/css">
+
+    /* Prevent copy paste for all elements except text fields */
+    *  { -webkit-user-select:none; -webkit-tap-highlight-color:rgba(255, 255, 255, 0); -ms-touch-action:none;}
+    input, textarea  { -webkit-user-select:text; }
+
+    /* Set up the page with a default background image */
+    body {
+        background-color:#fff;
+        color:#000;
+        font-family:Arial;
+        font-size:48pt;
+        margin:0px;padding:0px;
+        background-image:url('bkg.jpg');
+        /*background-repeat:no-repeat;*/
+    }
+    .cont {
+		z-index: 10;
+    }
+    .face.back {
+    	display:none;
+    }
+    .cont {
+		-webkit-perspective: 1000;
+    }
+	.face {
+		position:absolute;
+		width:100%;
+		height:100%;
+		-webkit-backface-visibility: hidden;
+		text-align: center;
+	}
+    .flipped {
+		-webkit-transform: rotateY( 180deg );
+    }
+    .face.back {    
+		display: none;
+		-webkit-transform: rotateY(180deg);
+		text-align: center;
+	}
+	.tipBox {
+		-webkit-box-sizing:border-box; box-sizing:border-box;
+		display:block;
+		font-size:40px;
+		margin:12px 12px 0 0; 
+		padding:10px 12px;
+		width:93%;
+		height:93%;
+		overflow:hidden;
+        line-height: 40px;
+		font-weight:bold;
+		border:black solid 3px;
+		background-color:goldenrod;
+		-webkit-border-radius:15px; border-radius:15px; 
+		-webkit-box-shadow:2px 2px 10px rgba(0,0,0,.7); box-shadow:2px 2px 10px rgba(0,0,0,.7);
+	}
+    #splashScreen {
+        position:absolute;
+        top:0;
+        left:0;
+        bottom:0;
+        right:0;
+        background-color:#000;
+        color:#fff;
+        z-index:100000;
+        height:2500px;
+        width:100%;
+        zoom:1;
+        margin:0;
+        float:left;
+    }
+
+
+        @-ms-viewport { width: 1280px; }
+        @viewport { width: 1280px; }
+</style>
+
+<script type="text/javascript" charset="utf-8" src="_appMobi/appmobi_local_bootstrap.js"></script>
+
+<script type="text/javascript" src="xpromo.js"></script>
+
+<script type="text/javascript">
+
+var onOrientation = function (e) {
+    window.external.notify("logger:in onOrientation: " + e.message);
+};
+document.addEventListener("logger:appMobi.orientation", onOrientation, false);
+//document.addEventListener("appMobi.orientation", onOrientation, false);
+
+/* This code prevents users from dragging the page */
+var preventDefaultScroll = function(event) {
+    event.preventDefault();
+    window.scroll(0,0);
+    return false;
+};
+document.addEventListener('touchmove', preventDefaultScroll, false);
+
+function onSuspend(e)
+{
+	AppMobi.player.stopAudio();
+	document.getElementById('audio').src = "Btn_Sound-On.png";
+	PLAYING = false;
+}
+document.addEventListener("appMobi.device.suspend",onSuspend,false);
+document.addEventListener("appMobi.device.pause",onSuspend,false);
+
+function onResume(e)
+{
+	var wasplaying = AppMobi.cache.getCookie(AppMobi.app.replace('.','_') + 'was_playing');
+	var shouldplay = ( typeof( wasplaying ) != "undefined" && wasplaying == 0 ? false : true );
+	if( shouldplay == true && PLAYING == false ) toggleAudio();
+}
+document.addEventListener("appMobi.device.resume",onResume,false);
+document.addEventListener("appMobi.device.continue",onResume,false);
+
+function playFixedSound(sound)
+{
+    window.external.notify("logger:in playFixedSound: " + sound);
+    if (AppMobi.isxdk == false && AppMobi.device.platform == "iOS")
+	{
+		sound = sound.replace("mp3","caf");
+		sound = sound.replace("mp3","caf");
+	}
+	else if( AppMobi.isintel == true )
+	{
+		sound = sound.replace("mp3","ogg");
+		sound = sound.replace("mp3","ogg");
+	}
+	AppMobi.player.playSound(sound);
+}
+
+function loadFixedSound(sound, count)
+{
+    window.external.notify("logger:in loadFixedSound: " + sound + ": " + count);
+    if (AppMobi.isxdk == false && AppMobi.device.platform == "iOS")
+	{
+		sound = sound.replace("mp3","caf");
+		sound = sound.replace("mp3","caf");
+	}
+	else if( AppMobi.isintel == true )
+	{
+		sound = sound.replace("mp3","ogg");
+		sound = sound.replace("mp3","ogg");
+	}
+	AppMobi.player.loadSound(sound, count);
+}
+
+/* This code is used to run as soon as appMobi activates */
+var onDeviceReadyStrap = function() {
+    window.external.notify("logger:in onDeviceReadyStrap: ");
+    setTimeout("onDeviceReady();", 1500);
+}
+
+var onDeviceReady = function () {
+    window.external.notify("logger:in onDeviceReady");
+
+    AppMobi.device.setAutoRotate(false);
+	AppMobi.device.setRotateOrientation("landscape");
+	AppMobi.display.lockViewportWindow(768, 1280, 1280, 768);
+
+	loadFixedSound("mp3/fly.mp3",1);
+	loadFixedSound("mp3/spider.mp3",1);
+	loadFixedSound("mp3/bird.mp3",1);
+	loadFixedSound("mp3/cat.mp3",1);
+	
+	loadFixedSound("mp3/dog.mp3",1);
+	loadFixedSound("mp3/goat.mp3",1);
+	loadFixedSound("mp3/cow.mp3",1);
+	loadFixedSound("mp3/horse.mp3",1);
+	loadFixedSound("mp3/tada.mp3",1);
+	restartGame();
+	
+	INTRO = AppMobi.cache.getCookie(AppMobi.app.replace('.','_') + 'intro_done');
+	if( typeof( INTRO ) == "undefined" ) win = 0;
+	if( INTRO == 0 ) setTimeout("document.getElementById('intro').style.display = 'block';", 50);
+	
+	var wasplaying = AppMobi.cache.getCookie(AppMobi.app.replace('.','_') + 'was_playing');
+	var shouldplay = ( typeof( wasplaying ) != "undefined" && wasplaying == 0 ? false : true );
+		
+	AppMobi.device.hideSplashScreen();
+	setTimeout("showAds();", 5000);
+	if( shouldplay == true ) setTimeout("toggleAudio();", 3000);
+	else document.getElementById('audio').src = "Btn_Sound-On.png";
+
+	document.getElementById('splashScreen').style.display = "none";
+	document.getElementById('gameBoard').style.display = "block";
+};
+document.addEventListener("appMobi.device.ready",onDeviceReadyStrap,false);    
+
+function showAds()
+{
+	AppMobiPromotion.getXPromo({"slide":"bottom","companyonly":1});
+}
+
+var WISDOM = ["Mind your manners","Eat your vegetables","Wash your hands","Prunes are yummy","Don't pick your nose","Be nice to the dog","Brush your teeth","Wash behind your ears","Listen to your elders","Do your homework","Exercise every day","Stop drop and roll","Don't talk to strangers","Pick up your toys","Stop hitting your sister"];
+function showWisdom()
+{
+	if( typeof( AppMobi.display.window ) != "undefined" && ( AppMobi.display.window.landwidth - 1024 > 200 ) )
+	{
+		for( var z = 0; z < 317; z++ )
+		{
+			var a = parseInt(Math.random()*971) % WISDOM.length;
+			var b = parseInt(Math.random()*971) % WISDOM.length;
+			while( b == a ) b = parseInt(Math.random()*971) % WISDOM.length;
+			
+			var temp = WISDOM[a];
+			WISDOM[a] = WISDOM[b];
+			WISDOM[b] = temp;
+		}
+		
+		for( var a = 1; a < 4; a++ ) document.getElementById("wisdom"+a).innerHTML = WISDOM[a];		
+	
+		var wisdom = document.getElementById('wisdom');
+		wisdom.style.width = ( AppMobi.display.window.landwidth - 1024 ) + "px";
+		wisdom.style.height = ( AppMobi.display.window.landheight - 300 ) + "px";
+		wisdom.style.display = "block";
+		document.getElementById('wiselady').style.display = "block";
+	}
+}
+
+var GRID = null;
+var MATCHED = null;
+var INTRO = 0;
+function restartGame()
+{
+	matches = 0;
+	tile1 = null;
+	tile2 = null;
+	
+	for( var dx = 0; dx < 16; dx++ )
+	{
+		document.getElementById('t'+dx).className = "";
+		document.getElementById('fit'+dx).src = "Card_Back.png";
+		if(( AppMobi.device.platform == "Android" && parseFloat( AppMobi.device.osversion ) < 3.0 ) || AppMobi.isintel || AppMobi.iswindows)
+		{
+			document.getElementById('fit'+dx).style.display = "block";			
+			document.getElementById('bit'+dx).style.display = "none";
+			document.getElementById('bit'+dx).parentNode.className = "face";
+		}
+	}
+	
+	showWisdom();
+	setTimeout("shuffle();", 500);
+}
+
+function shuffle()
+{
+	GRID = null;
+	GRID = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7];
+	MATCHED = null;
+	MATCHED = [false, false, false, false, false, false, false, false];
+	
+	for( var z = 0; z < 317; z++ )
+	{
+		var a = parseInt(Math.random()*971) % 16;
+		var b = parseInt(Math.random()*971) % 16;
+		while( b == a ) b = parseInt(Math.random()*971) % 16;
+		
+		var temp = GRID[a];
+		GRID[a] = GRID[b];
+		GRID[b] = temp;
+	}
+	
+	for( var dx = 0; dx < 16; dx++ )
+	{
+		document.getElementById('bit'+dx).src = IMAGEARRAY[GRID[dx]];
+	}
+}
+
+var IMAGEARRAY = ["Card_Fly.png","Card_Spider.png","Card_Bird.png","Card_Cat.png","Card_Dog.png","Card_Goat.png","Card_Cow.png","Card_Horse.png"];
+var SOUNDARRAY = ["mp3/fly.mp3","mp3/spider.mp3","mp3/bird.mp3","mp3/cat.mp3","mp3/dog.mp3","mp3/goat.mp3","mp3/cow.mp3","mp3/horse.mp3"];
+
+var FLY = 0;
+var SPIDER = 1;
+var BIRD = 2;
+var CAT = 3;
+var DOG = 4;
+var GOAT = 5;
+var COW = 6;
+var HORSE = 7;
+
+var tile1 = null;
+var tile2 = null;
+var matches = 0;
+
+function touchTile(dx)
+{
+	if( tile1 != null && tile2 != null ) return;
+	if (tile1 == dx || matches == 8) return;
+	if (MATCHED[GRID[dx]] == true) return;
+	
+	if( tile1 == null )
+	{
+	    if ((AppMobi.device.platform == "Android" && parseFloat(AppMobi.device.osversion) < 3.0) || AppMobi.isintel || AppMobi.iswindows)
+		{
+			document.getElementById('fit'+dx).style.display = "none";			
+			document.getElementById('bit'+dx).style.display = "block";
+		}
+		else
+		{
+			document.getElementById('t'+dx).className = "flipped";
+		}
+		tile1 = dx;
+		playFixedSound(SOUNDARRAY[GRID[tile1]]);
+		return;
+	}
+	
+	if( tile2 == null )
+	{
+	    if ((AppMobi.device.platform == "Android" && parseFloat(AppMobi.device.osversion) < 3.0) || AppMobi.isintel || AppMobi.iswindows)
+		{
+			document.getElementById('fit'+dx).style.display = "none";			
+			document.getElementById('bit'+dx).style.display = "block";
+		}
+		else
+		{
+			document.getElementById('t'+dx).className = "flipped";
+		}
+		tile2 = dx;
+		playFixedSound(SOUNDARRAY[GRID[tile2]]);
+	}
+	
+	if( GRID[tile1] == GRID[tile2] )
+	{
+	    MATCHED[GRID[tile1]] = true;
+	    matches++;
+		setTimeout("playFixedSound('mp3/tada.mp3');", 1000);
+		if( matches == 8 ) setTimeout("document.getElementById('won').style.display = 'block';", 1500);
+		tile1 = null;
+		tile2 = null;
+	}
+	else
+	{
+		setTimeout("unflip();", 2000 );
+	}
+}
+
+function unflip()
+{
+    if ((AppMobi.device.platform == "Android" && parseFloat(AppMobi.device.osversion) < 3.0) || AppMobi.isintel || AppMobi.iswindows)
+	{
+		document.getElementById('fit'+tile1).style.display = "block";			
+		document.getElementById('bit'+tile1).style.display = "none";
+		document.getElementById('fit'+tile2).style.display = "block";			
+		document.getElementById('bit'+tile2).style.display = "none";
+	}
+	else
+	{
+		document.getElementById('t'+tile1).className = '';
+		document.getElementById('t'+tile2).className = '';
+	}
+
+	tile1 = null; tile2 = null;
+}
+
+function next()
+{
+	document.getElementById('won').style.display = "none";
+}
+
+function closer()
+{
+	document.getElementById('intro').style.display = "none";
+	INTRO = 1;
+	AppMobi.cache.setCookie(AppMobi.app.replace('.','_') + 'intro_done', INTRO, -1);
+}
+
+PLAYING = false;
+function toggleAudio()
+{
+    window.external.notify("logger:in toggleAudio: " + PLAYING);
+
+	if( PLAYING == false )
+	{
+		if( AppMobi.isintel == true )
+		{
+			AppMobi.player.startAudio("ogg/olbkg.ogg", true);
+		}
+		else
+		{
+			AppMobi.player.startAudio("mp3/olbkg.mp3", true);
+		}
+		document.getElementById('audio').src = "Btn_Sound-Off.png";
+		PLAYING = true;
+		AppMobi.cache.setCookie(AppMobi.app.replace('.','_') + 'was_playing', 1, -1);
+	}
+	else
+	{
+		AppMobi.player.stopAudio();
+		document.getElementById('audio').src = "Btn_Sound-On.png";
+		PLAYING = false;
+		AppMobi.cache.setCookie(AppMobi.app.replace('.','_') + 'was_playing', 0, -1);
+	}
+}
+</script>
+
+</head>
+
+<body style="margin:0px;padding:0px;height:100%;width:100%;">
+
+<div id="splashScreen">
+    <p>LOADING...</p>
+
+    <p>&lt;Place Splash Screen Here&gt;</p>
+</div>
+<div id="gameBoard" style="display:none;">
+<div class="cont" ontouchstart="touchTile(0);" style="position:absolute; left:230px; top:20px; width:175px; height:150px;">
+	<div id="t0" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit0" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit0" src="Card_Cat.png"></div>
+	</div>
+</div>
+<div class="cont" ontouchstart="touchTile(1);" style="position:absolute; left:425px; top:20px; width:175px; height:150px;">
+	<div id="t1" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit1" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit1" src="Card_Cat.png"></div>
+	</div>
+</div>
+<div class="cont" ontouchstart="touchTile(2);" style="position:absolute; left:620px; top:20px; width:175px; height:150px;">
+	<div id="t2" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit2" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit2" src="Card_Cat.png"></div>
+	</div>
+</div>
+<div class="cont" ontouchstart="touchTile(3);" style="position:absolute; left:815px; top:20px; width:175px; height:150px;">
+	<div id="t3" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit3" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit3" src="Card_Cat.png"></div>
+	</div>
+</div>
+
+<div class="cont" ontouchstart="touchTile(4);" style="position:absolute; left:230px; top:180px; width:175px; height:150px;">
+	<div id="t4" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit4" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit4" src="Card_Cat.png"></div>
+	</div>
+</div>
+<div class="cont" ontouchstart="touchTile(5);" style="position:absolute; left:425px; top:180px; width:175px; height:150px;">
+	<div id="t5" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit5" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit5" src="Card_Cat.png"></div>
+	</div>
+</div>
+<div class="cont" ontouchstart="touchTile(6);" style="position:absolute; left:620px; top:180px; width:175px; height:150px;">
+	<div id="t6" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit6" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit6" src="Card_Cat.png"></div>
+	</div>
+</div>
+<div class="cont" ontouchstart="touchTile(7);" style="position:absolute; left:815px; top:180px; width:175px; height:150px;">
+	<div id="t7" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit7" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit7" src="Card_Cat.png"></div>
+	</div>
+</div>
+
+<div class="cont" ontouchstart="touchTile(8);" style="position:absolute; left:230px; top:340px; width:175px; height:150px;">
+	<div id="t8" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit8" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit8" src="Card_Cat.png"></div>
+	</div>
+</div>
+<div class="cont" ontouchstart="touchTile(9);" style="position:absolute; left:425px; top:340px; width:175px; height:150px;">
+	<div id="t9" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit9" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit9" src="Card_Cat.png"></div>
+	</div>
+</div>
+<div class="cont" ontouchstart="touchTile(10);" style="position:absolute; left:620px; top:340px; width:175px; height:150px;">
+	<div id="t10" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit10" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit10" src="Card_Cat.png"></div>
+	</div>
+</div>
+<div class="cont" ontouchstart="touchTile(11);" style="position:absolute; left:815px; top:340px; width:175px; height:150px;">
+	<div id="t11" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit11" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit11" src="Card_Cat.png"></div>
+	</div>
+</div>
+
+<div class="cont" ontouchstart="touchTile(12);" style="position:absolute; left:230px; top:500px; width:175px; height:150px;">
+	<div id="t12" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit12" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit12" src="Card_Cat.png"></div>
+	</div>
+</div>
+<div class="cont" ontouchstart="touchTile(13);" style="position:absolute; left:425px; top:500px; width:175px; height:150px;">
+	<div id="t13" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit13" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit13" src="Card_Cat.png"></div>
+	</div>
+</div>
+<div class="cont" ontouchstart="touchTile(14);" style="position:absolute; left:620px; top:500px; width:175px; height:150px;">
+	<div id="t14" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit14" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit14" src="Card_Cat.png"></div>
+	</div>
+</div>
+<div class="cont" ontouchstart="touchTile(15);" style="position:absolute; left:815px; top:500px; width:175px; height:150px;">
+	<div id="t15" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
+		<div class="front face"><img id="fit15" src="Card_Back.png"></div>
+		<div class="back face" ><img id="bit15" src="Card_Cat.png"></div>
+	</div>
+</div>
+</div>
+<img id="restart" ontouchstart="restartGame();" style="position:absolute; left:35px; top:532px;" src="Btn_StartOver.png">
+<img id="audio" ontouchstart="toggleAudio();" style="position:absolute; left:950px; top:670px;" src="Btn_Sound-Off.png">
+<img id="help" ontouchstart="document.getElementById('intro').style.display = 'block';" style="position:absolute; left:850px; top:670px;" src="Btn_Help_Over.png">
+
+<div id="won" style="z-index:100000;display:none;position:absolute;left:0px;top:0px;width:100%;height:100%;">
+	<div style="position:absolute;left:0px;top:0px;width:100%;height:100%;background:#000;opacity:.7;"></div>
+	<img ontouchstart="next();" src="YouWon.png" style="position:absolute;left:304px;top:184px;">
+</div>
+
+<div id="intro" style="z-index:100000;display:none;position:absolute;left:0px;top:0px;width:100%;height:100%;">
+	<div style="position:absolute;left:0px;top:0px;width:100%;height:100%;background:#000;opacity:.7;"></div>
+	<img ontouchstart="closer();" src="Instr_Match.png" style="position:absolute;left:268px;top:124px;">
+</div>
+
+<div id="wisdom" style="display:none;position:absolute;left:1030px;top:0px;height:748px;overflow:hidden;">
+	<div class="tipBox">
+		<div id="wisdom1" style="margin:5px;padding:10px;">Eat your vegetables</div>
+		<div id="wisdom2" style="margin:5px;padding:10px;">Be nice to the dog</div>
+		<div id="wisdom3" style="margin:5px;padding:10px;">Brush your teeth</div>
+	</div>
+</div>
+<img id="wiselady" src="Quote_OL.png" style="display:none;position:absolute;left:1040px;bottom:0px;">
+
+</body>
+
+</html>
