@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is auto-generated, do not edit! -jm -->
+<AppMobiWebSource>
+  <FilePath Value="html\bkg.jpg"/>
+  <FilePath Value="html\Btn_Help_Over.png"/>
+  <FilePath Value="html\Btn_Sound-Off.png"/>
+  <FilePath Value="html\Btn_Sound-On.png"/>
+  <FilePath Value="html\Btn_StartOver.png"/>
+  <FilePath Value="html\Card_Back.png"/>
+  <FilePath Value="html\Card_Bird.png"/>
+  <FilePath Value="html\Card_Cat.png"/>
+  <FilePath Value="html\Card_Cow.png"/>
+  <FilePath Value="html\Card_Dog.png"/>
+  <FilePath Value="html\Card_Fly.png"/>
+  <FilePath Value="html\Card_Goat.png"/>
+  <FilePath Value="html\Card_Horse.png"/>
+  <FilePath Value="html\Card_Spider.png"/>
+  <FilePath Value="html\index.html"/>
+  <FilePath Value="html\Instr_Match.png"/>
+  <FilePath Value="html\Quote_OL.png"/>
+  <FilePath Value="html\xpromo.js"/>
+  <FilePath Value="html\YouWon.png"/>
+
+  <FilePath Value="html\_appMobi\appmobi.js"/>
+  <FilePath Value="html\_appMobi\appmobi_local_bootstrap.js"/>
+  <FilePath Value="html\_appMobi\jq.desktopBrowsers.js"/>
+  <FilePath Value="html\_appMobi\xhr.js"/>
+
+  <FilePath Value="html\mp3\bird.mp3"/>
+  <FilePath Value="html\mp3\cat.mp3"/>
+  <FilePath Value="html\mp3\cow.mp3"/>
+  <FilePath Value="html\mp3\dog.mp3"/>
+  <FilePath Value="html\mp3\fly.mp3"/>
+  <FilePath Value="html\mp3\goat.mp3"/>
+  <FilePath Value="html\mp3\horse.mp3"/>
+  <FilePath Value="html\mp3\olbkg.mp3"/>
+  <FilePath Value="html\mp3\spider.mp3"/>
+  <FilePath Value="html\mp3\tada.mp3"/>
+</AppMobiWebSource>

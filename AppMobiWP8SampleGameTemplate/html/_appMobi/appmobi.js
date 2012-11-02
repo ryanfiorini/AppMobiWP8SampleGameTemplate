@@ -1,5 +1,3 @@
-window.external.notify("logger:in appmobi.js");
-
 if (typeof (AppMobiInit) != 'object')
     AppMobiInit = {};
 
@@ -1042,6 +1040,7 @@ AppMobi.Debug.prototype.processMessage = function (message) {
  * @param {Object|String} message Message or object to print to the console
  */
 AppMobi.Debug.prototype.log = function (message) {
+    window.external.notify("logger: " + message);
     console.log(message);
 };
 

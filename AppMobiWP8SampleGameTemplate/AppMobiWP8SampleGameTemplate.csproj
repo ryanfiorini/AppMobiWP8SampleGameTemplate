@@ -139,6 +139,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppMobiWebSource.xml" />
     <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -189,7 +190,9 @@
     <Content Include="html\YouWon.png" />
     <Content Include="html\_appMobi\appmobi.js" />
     <Content Include="html\_appMobi\appmobi_local_bootstrap.js" />
+    <Content Include="html\_appMobi\jq.desktopBrowsers.js" />
     <Content Include="html\_appMobi\xhr.js" />
+    <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">
@@ -200,7 +203,7 @@
   <ItemGroup>
     <Reference Include="appMobiWebViewWP8, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AppMobiWebViewWP8.1.0.4\lib\appMobiWebViewWP8.dll</HintPath>
+      <HintPath>..\packages\AppMobiWebViewWP8.1.0.9\lib\appMobiWebViewWP8.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />

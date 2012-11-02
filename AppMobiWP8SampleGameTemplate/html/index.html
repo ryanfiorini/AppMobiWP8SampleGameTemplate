@@ -5,9 +5,6 @@
 <title>Old Lady Match</title>
 
 <meta http-equiv="Content-type" content="text/html; charset=utf-8"> 
-    <script>
-        window.external.notify("logger:Loading index.html");
-    </script>
 <style type="text/css">
 
     /* Prevent copy paste for all elements except text fields */
@@ -80,22 +77,30 @@
         float:left;
     }
 
-
         @-ms-viewport { width: 1280px; }
         @viewport { width: 1280px; }
 </style>
 
 <script type="text/javascript" charset="utf-8" src="_appMobi/appmobi_local_bootstrap.js"></script>
+<script type="text/javascript" charset="utf-8" src="_appMobi/jq.desktopBrowsers.js"></script>
 
 <script type="text/javascript" src="xpromo.js"></script>
 
 <script type="text/javascript">
+// *** AppMobi.debug.log("") to display messages in the VS 2012 output window. ***
+// For debugging purposes (This will save your life)
+window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
+    AppMobi.debug.log("--------------------");
+    AppMobi.debug.log("onerror: errorMsg: " + errorMsg);
+    AppMobi.debug.log("onerror: url: " + url);
+    AppMobi.debug.log("onerror: lineNumber: " + lineNumber);
+    AppMobi.debug.log("--------------------");
+}
 
 var onOrientation = function (e) {
-    window.external.notify("logger:in onOrientation: " + e.message);
+    AppMobi.debug.log("in onOrientation: " + e.message);
 };
-document.addEventListener("logger:appMobi.orientation", onOrientation, false);
-//document.addEventListener("appMobi.orientation", onOrientation, false);
+document.addEventListener("appMobi.orientation", onOrientation, false);
 
 /* This code prevents users from dragging the page */
 var preventDefaultScroll = function(event) {
@@ -105,8 +110,7 @@ var preventDefaultScroll = function(event) {
 };
 document.addEventListener('touchmove', preventDefaultScroll, false);
 
-function onSuspend(e)
-{
+var onSuspend = function(e) {
 	AppMobi.player.stopAudio();
 	document.getElementById('audio').src = "Btn_Sound-On.png";
 	PLAYING = false;
@@ -114,8 +118,7 @@ function onSuspend(e)
 document.addEventListener("appMobi.device.suspend",onSuspend,false);
 document.addEventListener("appMobi.device.pause",onSuspend,false);
 
-function onResume(e)
-{
+var onResume = function(e) {
 	var wasplaying = AppMobi.cache.getCookie(AppMobi.app.replace('.','_') + 'was_playing');
 	var shouldplay = ( typeof( wasplaying ) != "undefined" && wasplaying == 0 ? false : true );
 	if( shouldplay == true && PLAYING == false ) toggleAudio();
@@ -123,9 +126,8 @@ function onResume(e)
 document.addEventListener("appMobi.device.resume",onResume,false);
 document.addEventListener("appMobi.device.continue",onResume,false);
 
-function playFixedSound(sound)
-{
-    window.external.notify("logger:in playFixedSound: " + sound);
+var playFixedSound = function(sound) {
+    AppMobi.debug.log("in playFixedSound: " + sound);
     if (AppMobi.isxdk == false && AppMobi.device.platform == "iOS")
 	{
 		sound = sound.replace("mp3","caf");
@@ -139,9 +141,8 @@ function playFixedSound(sound)
 	AppMobi.player.playSound(sound);
 }
 
-function loadFixedSound(sound, count)
-{
-    window.external.notify("logger:in loadFixedSound: " + sound + ": " + count);
+var loadFixedSound = function(sound, count) {
+    AppMobi.debug.log("in loadFixedSound: " + sound + ": " + count);
     if (AppMobi.isxdk == false && AppMobi.device.platform == "iOS")
 	{
 		sound = sound.replace("mp3","caf");
@@ -157,12 +158,12 @@ function loadFixedSound(sound, count)
 
 /* This code is used to run as soon as appMobi activates */
 var onDeviceReadyStrap = function() {
-    window.external.notify("logger:in onDeviceReadyStrap: ");
+    AppMobi.debug.log("in onDeviceReadyStrap: 1");
     setTimeout("onDeviceReady();", 1500);
 }
 
 var onDeviceReady = function () {
-    window.external.notify("logger:in onDeviceReady");
+    AppMobi.debug.log("in onDeviceReady");
 
     AppMobi.device.setAutoRotate(false);
 	AppMobi.device.setRotateOrientation("landscape");
@@ -197,7 +198,14 @@ var onDeviceReady = function () {
 };
 document.addEventListener("appMobi.device.ready",onDeviceReadyStrap,false);    
 
-function showAds()
+var onOrientationChange = function () {
+    AppMobi.debug.log("in onOrientationChange");
+
+    // do what you like here
+};
+document.addEventListener("appMobi.device.orientation.change", onOrientationChange, false);
+
+var showAds = function()
 {
 	AppMobiPromotion.getXPromo({"slide":"bottom","companyonly":1});
 }
@@ -378,7 +386,7 @@ function closer()
 PLAYING = false;
 function toggleAudio()
 {
-    window.external.notify("logger:in toggleAudio: " + PLAYING);
+    AppMobi.debug.log("in toggleAudio: " + PLAYING);
 
 	if( PLAYING == false )
 	{
