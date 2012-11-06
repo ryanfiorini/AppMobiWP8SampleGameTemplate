@@ -5,6 +5,10 @@
 <title>Old Lady Match</title>
 
 <meta http-equiv="Content-type" content="text/html; charset=utf-8"> 
+
+<!-- If you use this the AppMobi.display.useViewport() will not work -->
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
+
 <style type="text/css">
 
     /* Prevent copy paste for all elements except text fields */
@@ -77,8 +81,9 @@
         float:left;
     }
 
-        @-ms-viewport { width: 1280px; }
-        @viewport { width: 1280px; }
+    /*  If you use this the AppMobi.display.useViewport wi not work
+    @-ms-viewport { width: 1280px; }
+    @viewport { width: 1280px; }*/
 </style>
 
 <script type="text/javascript" charset="utf-8" src="_appMobi/appmobi_local_bootstrap.js"></script>
@@ -165,9 +170,16 @@ var onDeviceReadyStrap = function() {
 var onDeviceReady = function () {
     AppMobi.debug.log("in onDeviceReady");
 
+    // IE does NOT provide an alert method, you can patch it with this line after deviceready.
+    window.alert = window.alert || navigator.notification.alert;
+
+    var orientation = "landscape";  // portrait or landscape
+    var portraitWidth = 320;
+    var landscapeWidth = 1200;
+
     AppMobi.device.setAutoRotate(false);
-	AppMobi.device.setRotateOrientation("landscape");
-	AppMobi.display.lockViewportWindow(768, 1280, 1280, 768);
+    AppMobi.device.setRotateOrientation(orientation);
+    AppMobi.display.useViewport(portraitWidth, landscapeWidth);
 
 	loadFixedSound("mp3/fly.mp3",1);
 	loadFixedSound("mp3/spider.mp3",1);
