@@ -1,4 +1,6 @@
-﻿AppMobiWP8SampleGameTemplate:
+﻿------------------------------------
+AppMobiWP8SampleGameTemplate Readme:
+------------------------------------
 
 
 This template will pull down an AppMobiPage.xaml and the necessary HTML content and placed in a HTML folder.  
@@ -20,3 +22,9 @@ Other appMobi WP8 Templates:
     Install-Package AppMobiWP8HelloWorldTemplate
 	Install-Package AppMobiWP8SimpleJqMobiTemplate
 	Install-Package AppMobiWP8JqMobiKitchenSinkTemplate
+
+	
+
+Developr Notes:
+   html/_appMobi/window.js	- overwrites the alert, onerror event, console.log, console.warn, console.error.  Remove the script 
+		include in the index.html to revert back to device defaults.

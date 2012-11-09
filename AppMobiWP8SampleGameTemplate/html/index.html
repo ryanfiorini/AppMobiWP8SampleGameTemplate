@@ -89,21 +89,14 @@
 <script type="text/javascript" charset="utf-8" src="_appMobi/appmobi_local_bootstrap.js"></script>
 <script type="text/javascript" charset="utf-8" src="_appMobi/jq.desktopBrowsers.js"></script>
 
+<script type="text/javascript" charset="utf-8" src="_appMobi/window.js"></script>
+
 <script type="text/javascript" src="xpromo.js"></script>
 
 <script type="text/javascript">
-// *** AppMobi.debug.log("") to display messages in the VS 2012 output window. ***
-// For debugging purposes (This will save your life)
-window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
-    AppMobi.debug.log("--------------------");
-    AppMobi.debug.log("onerror: errorMsg: " + errorMsg);
-    AppMobi.debug.log("onerror: url: " + url);
-    AppMobi.debug.log("onerror: lineNumber: " + lineNumber);
-    AppMobi.debug.log("--------------------");
-}
-
 var onOrientation = function (e) {
-    AppMobi.debug.log("in onOrientation: " + e.message);
+    // *** console.log(""); to display messages in the Visual Studio Output Window. ***
+    console.log("in onOrientation: " + e.message);
 };
 document.addEventListener("appMobi.orientation", onOrientation, false);
 
@@ -132,7 +125,7 @@ document.addEventListener("appMobi.device.resume",onResume,false);
 document.addEventListener("appMobi.device.continue",onResume,false);
 
 var playFixedSound = function(sound) {
-    AppMobi.debug.log("in playFixedSound: " + sound);
+    console.log("in playFixedSound: " + sound);
     if (AppMobi.isxdk == false && AppMobi.device.platform == "iOS")
 	{
 		sound = sound.replace("mp3","caf");
@@ -147,7 +140,7 @@ var playFixedSound = function(sound) {
 }
 
 var loadFixedSound = function(sound, count) {
-    AppMobi.debug.log("in loadFixedSound: " + sound + ": " + count);
+    console.log("in loadFixedSound: " + sound + ": " + count);
     if (AppMobi.isxdk == false && AppMobi.device.platform == "iOS")
 	{
 		sound = sound.replace("mp3","caf");
@@ -163,15 +156,12 @@ var loadFixedSound = function(sound, count) {
 
 /* This code is used to run as soon as appMobi activates */
 var onDeviceReadyStrap = function() {
-    AppMobi.debug.log("in onDeviceReadyStrap: 1");
+    console.log("in onDeviceReadyStrap: 1", "message 2", "message 3");
     setTimeout("onDeviceReady();", 1500);
 }
 
 var onDeviceReady = function () {
-    AppMobi.debug.log("in onDeviceReady");
-
-    // IE does NOT provide an alert method, you can patch it with this line after deviceready.
-    window.alert = window.alert || navigator.notification.alert;
+    console.log("in onDeviceReady");
 
     var orientation = "landscape";  // portrait or landscape
     var portraitWidth = 320;
@@ -180,6 +170,11 @@ var onDeviceReady = function () {
     AppMobi.device.setAutoRotate(false);
     AppMobi.device.setRotateOrientation(orientation);
     AppMobi.display.useViewport(portraitWidth, landscapeWidth);
+
+    var wasplaying = AppMobi.cache.getCookie(AppMobi.app.replace('.', '_') + 'was_playing');
+    var shouldplay = (typeof (wasplaying) != "undefined" && wasplaying == 0 ? false : true);
+    if (shouldplay == true) setTimeout("toggleAudio();", 3000);
+    else document.getElementById('audio').src = "Btn_Sound-On.png";
 
 	loadFixedSound("mp3/fly.mp3",1);
 	loadFixedSound("mp3/spider.mp3",1);
@@ -197,13 +192,9 @@ var onDeviceReady = function () {
 	if( typeof( INTRO ) == "undefined" ) win = 0;
 	if( INTRO == 0 ) setTimeout("document.getElementById('intro').style.display = 'block';", 50);
 	
-	var wasplaying = AppMobi.cache.getCookie(AppMobi.app.replace('.','_') + 'was_playing');
-	var shouldplay = ( typeof( wasplaying ) != "undefined" && wasplaying == 0 ? false : true );
-		
+
 	AppMobi.device.hideSplashScreen();
 	setTimeout("showAds();", 5000);
-	if( shouldplay == true ) setTimeout("toggleAudio();", 3000);
-	else document.getElementById('audio').src = "Btn_Sound-On.png";
 
 	document.getElementById('splashScreen').style.display = "none";
 	document.getElementById('gameBoard').style.display = "block";
@@ -211,7 +202,7 @@ var onDeviceReady = function () {
 document.addEventListener("appMobi.device.ready",onDeviceReadyStrap,false);    
 
 var onOrientationChange = function () {
-    AppMobi.debug.log("in onOrientationChange");
+    console.log("in onOrientationChange");
 
     // do what you like here
 };
@@ -398,7 +389,7 @@ function closer()
 PLAYING = false;
 function toggleAudio()
 {
-    AppMobi.debug.log("in toggleAudio: " + PLAYING);
+    console.log("in toggleAudio: " + PLAYING);
 
 	if( PLAYING == false )
 	{
@@ -558,5 +549,4 @@ function toggleAudio()
 <img id="wiselady" src="Quote_OL.png" style="display:none;position:absolute;left:1040px;bottom:0px;">
 
 </body>
-
 </html>

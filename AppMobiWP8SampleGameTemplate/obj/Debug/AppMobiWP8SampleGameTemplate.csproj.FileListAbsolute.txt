@@ -8,7 +8,11 @@ C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiW
 C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\Bin\Debug\AppMobiWP8SampleGameTemplate.pdb
 C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\Bin\Debug\AppManifest.xaml
 C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\Bin\Debug\AppMobiWP8SampleGameTemplate_Debug_AnyCPU.xap
+C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\Bin\Debug\appMobiWebViewWP8.dll
+C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\Bin\Debug\appMobiWebViewWP8.pdb
+C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\obj\Debug\AppMobiWP8SampleGameTemplate.csprojResolveAssemblyReference.cache
 C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\obj\Debug\App.g.cs
+C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\obj\Debug\AppMobiPage.g.cs
 C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\obj\Debug\MainPage.g.cs
 C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\obj\Debug\AppMobiWP8SampleGameTemplate.g.resources
 C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\obj\Debug\AppMobiWP8SampleGameTemplate.Resources.AppResources.resources
@@ -16,7 +20,3 @@ C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiW
 C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\obj\Debug\AppMobiWP8SampleGameTemplate.dll
 C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\obj\Debug\AppMobiWP8SampleGameTemplate.pdb
 C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\obj\Debug\XapCacheFile.xml
-C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\Bin\Debug\appMobiWebViewWP8.dll
-C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\Bin\Debug\appMobiWebViewWP8.pdb
-C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\obj\Debug\AppMobiWP8SampleGameTemplate.csprojResolveAssemblyReference.cache
-C:\Users\Ryan\SkyDrive\Development\window8\AppMobiWP8SampleGameTemplate\AppMobiWP8SampleGameTemplate\obj\Debug\AppMobiPage.g.cs
