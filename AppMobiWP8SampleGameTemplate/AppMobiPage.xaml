@@ -9,7 +9,7 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="Landscape" Orientation="Landscape"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True"
     x:Name="phoneApplicationPage">
@@ -23,6 +23,13 @@
                    Margin="0,0,0,0"  
                    x:Name="webView" 
                    VerticalAlignment="Stretch" IsScriptEnabled="True"/>
+        <Image Source="Assets/splash_landscape.png"
+          x:Name="SplashScreen"
+               Margin="0,0,0,0" 
+               Stretch="Fill"
+          VerticalAlignment="Stretch"
+          HorizontalAlignment="Stretch">
+        </Image>
     </Grid>
 
 </phone:PhoneApplicationPage>

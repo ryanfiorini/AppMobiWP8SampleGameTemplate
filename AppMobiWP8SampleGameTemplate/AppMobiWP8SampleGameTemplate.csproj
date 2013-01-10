@@ -145,6 +145,8 @@
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\splash_landscape.png" />
+    <Content Include="Assets\splash_portrait.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -176,6 +178,12 @@
     <Content Include="html\Card_Spider.png" />
     <Content Include="html\index.html" />
     <Content Include="html\Instr_Match.png" />
+    <Content Include="html\lib\impact\debug\debug.css" />
+    <Content Include="html\lib\impact\debug\debug.js" />
+    <Content Include="html\lib\impact\debug\entities-panel.js" />
+    <Content Include="html\lib\impact\debug\graph-panel.js" />
+    <Content Include="html\lib\impact\debug\maps-panel.js" />
+    <Content Include="html\lib\impact\debug\menu.js" />
     <Content Include="html\mp3\bird.mp3" />
     <Content Include="html\mp3\cat.mp3" />
     <Content Include="html\mp3\cow.mp3" />
@@ -186,6 +194,7 @@
     <Content Include="html\mp3\olbkg.mp3" />
     <Content Include="html\mp3\spider.mp3" />
     <Content Include="html\mp3\tada.mp3" />
+    <Content Include="html\olmsplash.jpg" />
     <Content Include="html\Quote_OL.png" />
     <Content Include="html\xpromo.js" />
     <Content Include="html\YouWon.png" />
@@ -206,6 +215,10 @@
       <Project>{F8A6FAF7-CFD4-4E10-AF82-B72281646A65}</Project>
       <Name>appMobiWebViewWP8</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="html\lib\game\entities\" />
+    <Folder Include="html\lib\game\levels\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

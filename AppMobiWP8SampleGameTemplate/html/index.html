@@ -22,7 +22,7 @@
         font-family:Arial;
         font-size:48pt;
         margin:0px;padding:0px;
-        background-image:url('bkg.jpg');
+        background:url('bkg.jpg');
         /*background-repeat:no-repeat;*/
     }
     .cont {
@@ -32,7 +32,7 @@
     	display:none;
     }
     .cont {
-		-webkit-perspective: 1000;
+		/*-webkit-perspective: 1000;*/
     }
 	.face {
 		position:absolute;
@@ -65,24 +65,10 @@
 		-webkit-border-radius:15px; border-radius:15px; 
 		-webkit-box-shadow:2px 2px 10px rgba(0,0,0,.7); box-shadow:2px 2px 10px rgba(0,0,0,.7);
 	}
-    #splashScreen {
-        position:absolute;
-        top:0;
-        left:0;
-        bottom:0;
-        right:0;
-        background-color:#000;
-        color:#fff;
-        z-index:100000;
-        height:2500px;
-        width:100%;
-        zoom:1;
-        margin:0;
-        float:left;
-    }
 
-    /*  If you use this the AppMobi.display.useViewport wi not work
+    /*  If you use this the AppMobi.display.useViewport will not work
     @-ms-viewport { width: 1280px; }
+    @-ms-viewport { width: device-width; }
     @viewport { width: 1280px; }*/
 </style>
 
@@ -123,7 +109,7 @@ document.addEventListener("appMobi.device.resume",onResume,false);
 document.addEventListener("appMobi.device.continue",onResume,false);
 
 var playFixedSound = function(sound) {
-    console.log("in playFixedSound: " + sound);
+    //console.log("in playFixedSound: " + sound);
     if (AppMobi.isxdk == false && AppMobi.device.platform == "iOS")
 	{
 		sound = sound.replace("mp3","caf");
@@ -138,7 +124,7 @@ var playFixedSound = function(sound) {
 }
 
 var loadFixedSound = function(sound, count) {
-    console.log("in loadFixedSound: " + sound + ": " + count);
+    //console.log("in loadFixedSound: " + sound + ": " + count);
     if (AppMobi.isxdk == false && AppMobi.device.platform == "iOS")
 	{
 		sound = sound.replace("mp3","caf");
@@ -154,18 +140,19 @@ var loadFixedSound = function(sound, count) {
 
 /* This code is used to run as soon as appMobi activates */
 var onDeviceReadyStrap = function() {
-    console.log("in onDeviceReadyStrap: 1", "message 2", "message 3");
+    //console.log("in onDeviceReadyStrap: 1", "message 2", "message 3");
+
+    // need a delay to allow for the sounds to load.
     setTimeout("onDeviceReady();", 1500);
 }
 
 var onDeviceReady = function () {
-    console.log("in onDeviceReady");
-
     var orientation = "landscape";  // portrait or landscape
     var portraitWidth = 320;
-    var landscapeWidth = 1200;
+    var landscapeWidth = 1232;
 
     AppMobi.device.setAutoRotate(false);
+
     AppMobi.device.setRotateOrientation(orientation);
     AppMobi.display.useViewport(portraitWidth, landscapeWidth);
 
@@ -190,12 +177,8 @@ var onDeviceReady = function () {
 	if( typeof( INTRO ) == "undefined" ) win = 0;
 	if( INTRO == 0 ) setTimeout("document.getElementById('intro').style.display = 'block';", 50);
 	
-
 	AppMobi.device.hideSplashScreen();
 	setTimeout("showAds();", 5000);
-
-	document.getElementById('splashScreen').style.display = "none";
-	document.getElementById('gameBoard').style.display = "block";
 };
 document.addEventListener("appMobi.device.ready",onDeviceReadyStrap,false);    
 
@@ -387,7 +370,7 @@ function closer()
 PLAYING = false;
 function toggleAudio()
 {
-    console.log("in toggleAudio: " + PLAYING);
+    //console.log("in toggleAudio: " + PLAYING);
 
 	if( PLAYING == false )
 	{
@@ -416,13 +399,7 @@ function toggleAudio()
 </head>
 
 <body style="margin:0px;padding:0px;height:100%;width:100%;">
-
-<div id="splashScreen">
-    <p>LOADING...</p>
-
-    <p>&lt;Place Splash Screen Here&gt;</p>
-</div>
-<div id="gameBoard" style="display:none;">
+<div id="gameBoard">
 <div class="cont" ontouchstart="touchTile(0);" style="position:absolute; left:230px; top:20px; width:175px; height:150px;">
 	<div id="t0" style="width:100%; height:100%; -webkit-transform-style: preserve-3d; -webkit-transition: -webkit-transform 1s;">
 		<div class="front face"><img id="fit0" src="Card_Back.png"></div>
@@ -523,7 +500,7 @@ function toggleAudio()
 	</div>
 </div>
 </div>
-<img id="restart" ontouchstart="restartGame();" style="position:absolute; left:35px; top:532px;" src="Btn_StartOver.png">
+<img id="restart" ontouchstart="restartGame();" style="position:absolute; left:24px; top:480px;" src="Btn_StartOver.png">
 <img id="audio" ontouchstart="toggleAudio();" style="position:absolute; left:950px; top:670px;" src="Btn_Sound-Off.png">
 <img id="help" ontouchstart="document.getElementById('intro').style.display = 'block';" style="position:absolute; left:850px; top:670px;" src="Btn_Help_Over.png">
 

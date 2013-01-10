@@ -1538,6 +1538,8 @@ if (typeof AppMobiLocalFlag != "undefined") {
 	* @param landscapeWidthInPx
 	*/
     AppMobi.Display.prototype.useViewport = function (portraitWidthInPx, landscapeWidthInPx) {
+        console.log("in here 2", portraitWidthInPx, landscapeWidthInPx);
+
         /// <param name='widthPortrait'></param>
 
         /// <param name='widthLandscape'></param>
